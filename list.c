@@ -61,32 +61,33 @@ void insert_cell(t_d_list* li,p_d_cell cell){
 
 int searclevel0( t_d_list* li,int sh){
     p_d_cell temp =li->head[0];
+    int ch=0;
     while(temp!=NULL) {
         if(temp->value==sh){
-            return 1;
+            return ch;
         }
         temp=temp->next[0];
+        ch+=1;
     }
     return 0;
 }
 int serclevellast(t_d_list* li,int sh){
-    int tplev=(li->level)-1;
+    int tplev=log2(sh);
     p_d_cell temp=li->head[tplev];
     p_d_cell celt;
-    while( (tplev>-1)&&(temp->value>sh)){
-        tplev=tplev-1;
-        temp=li->head[tplev];
-    }
+    int ch=0;
     while((temp!=NULL) &&( tplev>-1)){
         if(temp->value==sh){
-            return 1;}
+            return ch;}
         celt=temp->next[tplev];
-        if((celt!=NULL)&&(celt->value<=sh)){
+        if ((celt!=NULL)&&(celt->value<=sh)){
             temp=temp->next[tplev];
+            ch+=1;
         }
-        else{
-            tplev=tplev-1;
+        if((celt==NULL)||(celt->value>sh)){
+            tplev= log2(sh-temp->value);
+
         }
-    }
+    printf("%d ",temp->value);}
     return 0;
 }

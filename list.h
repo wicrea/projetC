@@ -4,6 +4,7 @@
 
 #ifndef UNTITLED8_LIST_H
 #define UNTITLED8_LIST_H
+#include <math.h>
 typedef struct s_d_cell
 { int value;
     int level;
