@@ -78,7 +78,7 @@ int serclevellast(t_d_list* li,int sh){
     int ch=0;
     while((temp!=NULL) &&( tplev>-1)){
         if(temp->value==sh){
-            return ch;}
+            return ch+1;}
         celt=temp->next[tplev];
         if ((celt!=NULL)&&(celt->value<=sh)){
             temp=temp->next[tplev];
@@ -87,7 +87,6 @@ int serclevellast(t_d_list* li,int sh){
         if((celt==NULL)||(celt->value>sh)){
             tplev= log2(sh-temp->value);
 
-        }
-    printf("%d ",temp->value);}
+        }}
     return 0;
 }
