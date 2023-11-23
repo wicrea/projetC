@@ -13,8 +13,8 @@ typedef struct rdv{
     struct rdv* rdv;
 }rdv;
 typedef struct contact{
-    char* prenom;
-    char* nom;
+    char* name;
     rdv* rdv;
-};
+}contact;
+
 #endif //UNTITLED8_PART3_H

@@ -23,21 +23,30 @@ int main() {
     }
     srand(time(NULL));
         print_all_list(*li);
-    for(int te=0;te<100;te++ ){
     int value=( rand() % pi) ;
     if (value==0)value=1;
         startTimer();
-        searclevel0(li,value);
+        print_all_list(*li);
+        for(int te=0;te<1000;te++ ){
+            int value=( rand() % pi) ;
+            if (value==0)value=1;
+            searclevel0(li,value);
+        }
         stopTimer();
-
-        time_lvl0 = getTimeAsString(); // fonction du module timer
+        time_lvl0 = getTimeAsString();
+        displayTime();
+        // fonction du module timer
         startTimer();
-    int rest=serclevellast( li,value);
-    stopTimer();
-    time_all_levels = getTimeAsString();
+        for(int te=0;te<1000;te++ ){
+            int value=( rand() % pi) ;
+            if (value==0)value=1;
+        int rest=serclevellast( li,value);
+        time_all_levels = getTimeAsString();
+        stopTimer();}
+        displayTime();
     fprintf(log_file,format,level,time_lvl0, time_all_levels);
     comp+=1;
-    }  }
+    }
     fclose(log_file);
     return 0;
 
