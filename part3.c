@@ -4,19 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "part3.h"
-void afficher_contact(contact* x){
-    if (x->rdv->objet){
-        printf("%s",x->rdv->objet);
-    }
-}
 
-void supprimer_rdv(contact* x){
-    free (x->rdv);
-}
 
 char *scanString(void){
     char mystr[100] ;
-    printf("name:");
     scanf("%s",mystr);
     char * name=malloc((strlen(mystr)+1)*sizeof(char));
     strcpy(name,mystr);
@@ -46,13 +37,12 @@ return x;
 }
 
 
-void créer_contact(c_list* l) {
-    contact x;
-    char* name=scanString();
+void créer_contact(c_list* l,char* name) {
+    contact x; //cree le nouveau contact
     x.name=name;
     s_cell *s;
     s = create_s_cell(x);
-    if (l->head[0] == NULL) {
+    if (l->head[0] == NULL) { //pour la liste vide
         for (int i = 0; i < 4; i++) {
             l->head[i] = s;
         }
@@ -60,40 +50,40 @@ void créer_contact(c_list* l) {
         s_cell *temp, *prev;
         temp = l->head[0];
         prev=temp;
-        while ((temp!=NULL)&&(strcmp(temp->value.name,s->value.name)<0)) {
+        while ((temp!=NULL)&&(strcmp(temp->value.name,s->value.name)<0)) { //li la liste jusqu'a l'androit ou il faut ajouter
             prev=temp;
          temp=temp->next[0];
 
-         ;}
-                if(strcmp(s->value.name,prev->value.name)>0){
+         }
+                if(strcmp(s->value.name,prev->value.name)>0){ //verifi qu'on ajoute pas a l'en téte (au head)
                     s->next[0]=temp;
                     prev->next[0]=s;
-              if(prev->value.name[0]!=s->value.name[0]){
+              if(prev->value.name[0]!=s->value.name[0]){ //si
                   s_cell * tempniv3=l->head[3];
-                  while ((tempniv3->next[3]!=NULL)&&(tempniv3->next[3]->value.name[0]<s->value.name[0])){
+                  while ((tempniv3->next[3]!=NULL)&&(tempniv3->next[3]->value.name[0]<s->value.name[0])){ //trouve le prev au niveau3
                     tempniv3=tempniv3->next[3];}
                     s->next[3]=tempniv3->next[3];
                     tempniv3->next[3]=s;
-                    if((tempniv3->next[3]!=NULL)&&(tempniv3->next[3]->value.name[0]==s->value.name[0])){
+                    if((tempniv3->next[3]!=NULL)&&(tempniv3->next[3]->value.name[0]==s->value.name[0])){ // éviter une boucle infinie
                         s->next[3]=NULL;
                     }
                   while (((tempniv3->next[2]!=NULL)&&(strcmp(temp->value.name,tempniv3->value.name)<0))&&(tempniv3->next[2]->value.name[1]<s->value.name[1])){
-                      tempniv3=tempniv3->next[2];
+                      tempniv3=tempniv3->next[2]; //trouve le prev au niveau2
                   }
                   s->next[2]=tempniv3->next[2];
                   tempniv3->next[2]=s;
-                  if((tempniv3->next[2]!=NULL)&&(tempniv3->next[2]->value.name[1]==s->value.name[1])){
+                  if((tempniv3->next[2]!=NULL)&&(tempniv3->next[2]->value.name[1]==s->value.name[1])){ //eviter une boucle infinie
                       s->next[2]=NULL;
                   }
-                  while (((tempniv3->next[1]!=NULL)&&(tempniv3!=prev))&&(tempniv3->next[1]->value.name[2]<s->value.name[2])){
+                  while (((tempniv3->next[1]!=NULL)&&(tempniv3!=prev))&&(tempniv3->next[1]->value.name[2]<s->value.name[2])){ // trouver le prev au nieaux 1
                       tempniv3=tempniv3->next[1];
                   }
                   s->next[1]=tempniv3->next[1];
                   tempniv3->next[1]=s;
-                  if((tempniv3->next[1]!=NULL)&&(tempniv3->next[1]->value.name[2]==s->value.name[2])){
+                  if((tempniv3->next[1]!=NULL)&&(tempniv3->next[1]->value.name[2]==s->value.name[2])){ //eviter boucle infinie
                       s->next[2]=NULL;
                   }
-                  if((temp!=NULL)&&(temp->value.name[0]==s->value.name[0])){
+                  if((temp!=NULL)&&(temp->value.name[0]==s->value.name[0])){ //change les pointeur de temp
                       temp->next[3]=NULL;
                       if((temp!=NULL)&&(temp->value.name[1]==s->value.name[1])){
                           temp->next[2]=NULL;
@@ -105,19 +95,20 @@ void créer_contact(c_list* l) {
               else{ if(prev->value.name[1]!=s->value.name[1]){
                       s_cell * tempniv3=l->head[2];
                       s->next[2]=tempniv3->next[2];
-                      tempniv3->next[2]=s;
+                      tempniv3->next[2]=s; //si la premiére lettre et pareil et celle d'apres est diferentes pareil
+
                       while (((tempniv3->next[1]!=NULL)&&(tempniv3!=prev))&&(tempniv3->next[1]->value.name[2]<s->value.name[2])){
-                          tempniv3=tempniv3->next[1];
+                          tempniv3=tempniv3->next[1]; //cherche le temp au niveau 1
                       }
                       s->next[1]=tempniv3->next[1];
                       tempniv3->next[1]=s;}
-                  else{ if(prev->value.name[2]!=s->value.name[2]){
+                  else{ if(prev->value.name[2]!=s->value.name[2]){ //si les deux premiéres lettres sont pareils et les autres sont differentes
                               s_cell * tempniv3=l->head[1];
                           s->next[1]=tempniv3->next[1];
                               tempniv3->next[1]=s;}
                   }}
 
-                }else{
+                }else{  //si on doit changer la premiére valeur
                     if(temp==l->head[0]){
                         s->next[0]=temp;
                         for (int i=0;i<4;i++){
@@ -125,7 +116,7 @@ void créer_contact(c_list* l) {
                             s->next[i]=temp;
                         }
 
-                        if(temp->value.name[0]==s->value.name[0]){
+                        if(temp->value.name[0]==s->value.name[0]){ //changer les pointeur de temp
                             s->next[3]=temp->next[3];
                             temp->next[3]=NULL;
                         if(temp->value.name[1]==s->value.name[1]){
@@ -142,7 +133,7 @@ int searclevel0part3(c_list * li, char * name){
     s_cell* temp =li->head[0];
     int ch=0;
     while(temp!=NULL) {
-        if(temp->value.name==name){
+        if(strcmp(temp->value.name,name)==0){
             return ch;
         }
         temp=temp->next[0];
@@ -167,3 +158,45 @@ void print_all_lista(c_list li){
         printf("\n");
     }
 }
+void createrdv( c_list* li){
+    rdv* dr=(rdv*) malloc(sizeof(rdv));
+    printf("donner la date:l'annee");
+    scanf("%d",&(dr->date_rdv[0]));
+    printf("mois");
+    scanf("%d",&(dr->date_rdv[1]));
+    printf("jour");
+    scanf("%d",&(dr->date_rdv[2]));
+    printf("donner l'heure  du debut: heure:");
+    scanf("%d",&(dr->heure_debut[0]));
+    printf(" min:");
+    scanf("%d",&(dr->heure_debut[1]));
+    printf("donner la durée: en heure:");
+    scanf("%d",&(dr->herre_duree[0]));
+    printf(" min:");
+    scanf("%d",&(dr->herre_duree[1]));
+    printf("donner l'objet");
+    dr->objet=scanString();
+    printf("donner contact");
+    char * name=scanString();
+    s_cell* temp =li->head[0];
+    s_cell * prev=temp;
+    while((temp!=NULL)&&(strcmp(temp->value.name,name)==0)){
+        temp=temp->next[0];
+    }
+    if(temp==NULL){
+        créer_contact( li, name);
+        while((temp!=NULL)&&(strcmp(temp->value.name,name)==0)){
+            temp=temp->next[0];
+        }
+        if(temp->value.rdv!=NULL){
+            temp->value.rdv=dr;
+        }else{
+            rdv* trmprdv=temp->value.rdv;
+            while (trmprdv->next!=NULL){
+                trmprdv=trmprdv->next;
+            }
+            trmprdv->next=dr;
+        }
+    }
+}
+void printtotrdv(char *name){}

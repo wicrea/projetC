@@ -10,7 +10,7 @@ typedef struct rdv{
     int heure_debut [2];
     int  herre_duree [2];
     char * objet;
-    struct rdv* rdv;
+    struct rdv* next;
 }rdv;
 typedef struct contact{
     char* name;
@@ -18,8 +18,6 @@ typedef struct contact{
 }contact;
 void printString(char);
 
-void afficher_contact(contact* x );
-void supprimer_rdv(contact* x);
 
 
 typedef struct s_cell{
@@ -35,7 +33,9 @@ void print_lista(int level,c_list li);
 void print_all_lista(c_list li);
 c_list* create_list_contact();
 s_cell* create_s_cell();
-void créer_contact();
+void créer_contact(c_list* l, char * name);
 char *scanString(void);
 int searclevel0part3(c_list * li, char * name);
+void createrdv( c_list* li);
+void printtotrdv(char *name);
 #endif //UNTITLED8_PART3_H

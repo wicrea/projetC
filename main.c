@@ -66,14 +66,20 @@ int main(){
 
     fclose(log_file);*/
     c_list* con=create_list_contact();
-    créer_contact(con);
+    char*name =scanString();
+    créer_contact(con,name);
     print_all_lista(*con);
-    créer_contact(con);
+    name =scanString();
+    créer_contact(con,name);
     print_all_lista(*con);
-    créer_contact(con);
+    name =scanString();
+    créer_contact(con,name);
     printf("te");
     print_all_lista(*con);
-    créer_contact(con);
+    name =scanString();
+    créer_contact(con,name);
+    print_all_lista(*con);
+    createrdv(con);
     print_all_lista(*con);
     return 0;
 
