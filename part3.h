@@ -37,5 +37,5 @@ void créer_contact(c_list* l, char * name);
 char *scanString(void);
 int searclevel0part3(c_list * li, char * name);
 void createrdv( c_list* li);
-void printtotrdv(char *name);
+void printtotrdv(char *name, c_list* li);
 #endif //UNTITLED8_PART3_H

@@ -170,7 +170,7 @@ void createrdv( c_list* li){
     scanf("%d",&(dr->heure_debut[0]));
     printf(" min:");
     scanf("%d",&(dr->heure_debut[1]));
-    printf("donner la durée: en heure:");
+    printf("donner la duree: en heure:");
     scanf("%d",&(dr->herre_duree[0]));
     printf(" min:");
     scanf("%d",&(dr->herre_duree[1]));
@@ -199,4 +199,26 @@ void createrdv( c_list* li){
         }
     }
 }
-void printtotrdv(char *name){}
+void printtotrdv(char *name, c_list* li){
+    s_cell * temp=li->head[0];
+    while((temp!=NULL)&&(strcmp(temp->value.name,name)==0)){
+        temp=temp->next[0];
+    }
+    if(temp==NULL){
+        printf("contact no exist");
+    }
+    else{
+        rdv* rdv=temp->value.rdv;
+        if(rdv==NULL){
+            printf("no rdv");
+        }
+        else{
+            while (rdv!=NULL){
+                printf("date:%d/%d/%d\n",rdv->date_rdv[2],rdv->date_rdv[1],rdv->date_rdv[0]);
+                printf("start:%dh:%d\n",rdv->heure_debut[0],rdv->heure_debut[1]);
+                printf("duree:%dh:%d\n",rdv->herre_duree[0],rdv->herre_duree[1]);
+                printf("objet:%s",rdv->objet);
+            }
+        }
+    }
+}
