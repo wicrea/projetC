@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "list.h"
 
-// j'ai tout enlevé pour rajoute les commentaires fait sur clion
+// j'ai tout enlevé pour rajoutee les commentaires faits sur clion
 
 p_d_cell  create_cell(int level,int value){
     //Allocation dynamique pour une cellule de la taille t_d_cell
