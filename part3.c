@@ -50,12 +50,12 @@ void créer_contact(c_list* l,char* name) {
         s_cell *temp, *prev;
         temp = l->head[0];
         prev=temp;
-        while ((temp!=NULL)&&(strcmp(temp->value.name,s->value.name)<0)) { //li la liste jusqu'a l'androit ou il faut ajouter
+        while ((temp!=NULL)&&(strcmp(temp->value.name,s->value.name)<0)) { //lit la liste jusqu'à l'endroit où il faut ajouter
             prev=temp;
          temp=temp->next[0];
 
          }
-                if(strcmp(s->value.name,prev->value.name)>0){ //verifi qu'on ajoute pas a l'en téte (au head)
+                if(strcmp(s->value.name,prev->value.name)>0){ //verifie qu'on ajoute pas a l'en téte (au head)
                     s->next[0]=temp;
                     prev->next[0]=s;
               if(prev->value.name[0]!=s->value.name[0]){ //si
@@ -75,7 +75,7 @@ void créer_contact(c_list* l,char* name) {
                   if((tempniv3->next[2]!=NULL)&&(tempniv3->next[2]->value.name[1]==s->value.name[1])){ //eviter une boucle infinie
                       s->next[2]=NULL;
                   }
-                  while (((tempniv3->next[1]!=NULL)&&(tempniv3!=prev))&&(tempniv3->next[1]->value.name[2]<s->value.name[2])){ // trouver le prev au nieaux 1
+                  while (((tempniv3->next[1]!=NULL)&&(tempniv3!=prev))&&(tempniv3->next[1]->value.name[2]<s->value.name[2])){ // trouver le prev au niveau 1
                       tempniv3=tempniv3->next[1];
                   }
                   s->next[1]=tempniv3->next[1];
@@ -83,7 +83,7 @@ void créer_contact(c_list* l,char* name) {
                   if((tempniv3->next[1]!=NULL)&&(tempniv3->next[1]->value.name[2]==s->value.name[2])){ //eviter boucle infinie
                       s->next[2]=NULL;
                   }
-                  if((temp!=NULL)&&(temp->value.name[0]==s->value.name[0])){ //change les pointeur de temp
+                  if((temp!=NULL)&&(temp->value.name[0]==s->value.name[0])){ //change les pointeurs de temp
                       temp->next[3]=NULL;
                       if((temp!=NULL)&&(temp->value.name[1]==s->value.name[1])){
                           temp->next[2]=NULL;
@@ -95,20 +95,20 @@ void créer_contact(c_list* l,char* name) {
               else{ if(prev->value.name[1]!=s->value.name[1]){
                       s_cell * tempniv3=l->head[2];
                       s->next[2]=tempniv3->next[2];
-                      tempniv3->next[2]=s; //si la premiére lettre et pareil et celle d'apres est diferentes pareil
+                      tempniv3->next[2]=s; //si la première lettre est pareille et celle d'apres est differente
 
                       while (((tempniv3->next[1]!=NULL)&&(tempniv3!=prev))&&(tempniv3->next[1]->value.name[2]<s->value.name[2])){
                           tempniv3=tempniv3->next[1]; //cherche le temp au niveau 1
                       }
                       s->next[1]=tempniv3->next[1];
                       tempniv3->next[1]=s;}
-                  else{ if(prev->value.name[2]!=s->value.name[2]){ //si les deux premiéres lettres sont pareils et les autres sont differentes
+                  else{ if(prev->value.name[2]!=s->value.name[2]){ //si les deux premières lettres sont pareilles et les autres sont differentes
                               s_cell * tempniv3=l->head[1];
                           s->next[1]=tempniv3->next[1];
                               tempniv3->next[1]=s;}
                   }}
 
-                }else{  //si on doit changer la premiére valeur
+                }else{  //si on doit changer la première valeur
                     if(temp==l->head[0]){
                         s->next[0]=temp;
                         for (int i=0;i<4;i++){
@@ -116,7 +116,7 @@ void créer_contact(c_list* l,char* name) {
                             s->next[i]=temp;
                         }
 
-                        if(temp->value.name[0]==s->value.name[0]){ //changer les pointeur de temp
+                        if(temp->value.name[0]==s->value.name[0]){ //changer les pointeurs de temp
                             s->next[3]=temp->next[3];
                             temp->next[3]=NULL;
                         if(temp->value.name[1]==s->value.name[1]){
