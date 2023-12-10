@@ -71,21 +71,21 @@ int searclevel0( t_d_list* li,int sh){
     }
     return 0;
 }
-int serclevellast(t_d_list* li,int sh){
-    int tplev=log2(sh);
-    p_d_cell temp=li->head[tplev];
+int serclevellast(t_d_list* li,int sh){ // chercher la position d'une valeur à ajouter 
+    int tplev=log2(sh); // on effectue le log2 de la valeur recherchée pour savoir le niveau où on commence la recherche
+    p_d_cell temp=li->head[tplev]; // on initialise un pointeur en tête de liste
     p_d_cell celt;
-    int ch=0;
-    while((temp!=NULL) &&( tplev>-1)){
-        if(temp->value==sh){
-            return ch+1;}
-        celt=temp->next[tplev];
-        if ((celt!=NULL)&&(celt->value<=sh)){
-            temp=temp->next[tplev];
-            ch+=1;
+    int ch=0; // varibale qui stocke le nombre d'itérations
+    while((temp!=NULL) &&( tplev>-1)){ // tant que le pointeur n'est pas nul et que le niveau calculé existe
+        if(temp->value==sh){ // si on se trouve sur la bonne valeur alors on retourne le nombre d'itérations effectuées
+            return ch+1;} 
+        celt=temp->next[tplev]; // on continue de parcourir la liste
+        if ((celt!=NULL)&&(celt->value<=sh)){ // si celts (val suivante) inf ou = on reste sur le niveau 
+            temp=temp->next[tplev]; // on continue de parcourir ce niveau
+            ch+=1; // incremente cpt nbr itération
         }
-        if((celt==NULL)||(celt->value>sh)){
-            tplev= log2(sh-temp->value);
+        if((celt==NULL)||(celt->value>sh)){ // si celt (val suivant) > la val n'est pas sur ce niveai donc on descend de niveau
+            tplev= log2(sh-temp->value); // on calcule le niveau où on va 
 
         }}
     return 0;
